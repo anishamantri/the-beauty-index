@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Edible Index</title>
+<meta name="description" content="Eat beautifully. Think deliciously. An evolving encyclopedia of food chemistry, intelligent ingredients, everyday nourishment, clever recipes and the art of eating beautifully.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500&display=swap">
+<style>
+:root{--bg:#fbf6ea;--ink:#2e2923;--muted:#6b6256;--line:rgba(120,98,66,.28)}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;color:var(--ink);font:400 16px/1.55 'DM Sans',system-ui,sans-serif;background:radial-gradient(900px 600px at 0 0,#f3ead2 0,transparent 60%),radial-gradient(800px 600px at 100% 30%,#f5e6dc 0,transparent 60%),radial-gradient(900px 600px at 0 80%,#e8eedd 0,transparent 60%),var(--bg);background-attachment:fixed}
+a{color:inherit}
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+.back{display:inline-block;margin:28px 0 0;color:var(--muted);text-decoration:none;font:500 12px 'DM Mono',ui-monospace,monospace;letter-spacing:.06em}
+.back:hover{color:var(--ink)}
+header{padding:18px 0 10px;text-align:center}
+.sprig{display:block;margin:0 auto 6px;width:92px;height:auto;opacity:.75}
+h1{font:600 clamp(46px,9vw,88px)/.95 'Cormorant Garamond',Georgia,serif;margin:0 0 12px;letter-spacing:.01em}
+.tag{font:italic 600 clamp(22px,3.4vw,30px)/1.2 'Cormorant Garamond',Georgia,serif;margin:0 0 14px;color:#7a4a35}
+.desc{margin:0 auto;max-width:60ch;color:var(--muted);font-size:16px}
+.rule{display:flex;align-items:center;gap:14px;max-width:420px;margin:24px auto 0;color:#a58a55}
+.rule::before,.rule::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,transparent,#c9b27c,transparent)}
+.search{position:sticky;top:0;z-index:5;padding:14px 0;background:rgba(251,246,234,.82);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+.search label{position:absolute;left:-9999px}
+.search input{width:100%;max-width:560px;display:block;margin:0 auto;padding:13px 20px;border:1px solid var(--line);border-radius:999px;background:#fffdf8;color:var(--ink);font:400 15px 'DM Sans',system-ui,sans-serif;box-shadow:0 2px 10px -6px rgba(90,70,40,.3)}
+.search input:focus-visible{outline:3px solid #b9833f;outline-offset:2px}
+nav.jump{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin:12px auto 0;max-width:760px}
+nav.jump a{font:500 11px 'DM Mono',ui-monospace,monospace;letter-spacing:.07em;text-transform:uppercase;text-decoration:none;padding:7px 13px;border-radius:999px;background:rgba(255,253,248,.8);border:1px solid var(--line)}
+nav.jump a:hover{background:#fff}
+nav.jump a:focus-visible{outline:3px solid #b9833f;outline-offset:2px}
+section.col{margin:34px 0;padding:30px clamp(16px,3vw,34px) 34px;border-radius:32px;border:1px solid var(--line);background:linear-gradient(160deg,var(--c1),var(--c2));box-shadow:0 14px 34px -22px rgba(80,60,30,.5)}
+.col header{padding:0 0 20px;text-align:left}
+.num{font:500 12px 'DM Mono',ui-monospace,monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--acc)}
+.col h2{font:600 clamp(32px,5vw,48px)/1 'Cormorant Garamond',Georgia,serif;margin:4px 0 6px}
+.col .sub{margin:0;font:italic 500 21px/1.3 'Cormorant Garamond',Georgia,serif;color:var(--muted)}
+.grid{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:16px}
+.card{display:flex;flex-direction:column;background:rgba(255,253,248,.88);border:1px solid var(--line);border-radius:22px;overflow:hidden;box-shadow:0 8px 20px -16px rgba(60,40,20,.55);transition:transform .2s,box-shadow .2s}
+.card:hover{transform:translateY(-3px);box-shadow:0 14px 26px -16px rgba(60,40,20,.6)}
+.pic{position:relative;aspect-ratio:1/1;display:grid;place-items:center;background:linear-gradient(150deg,var(--c2),var(--c1));overflow:hidden}
+.pic::before{content:"";position:absolute;inset:10px;border:1px solid rgba(255,255,255,.7);border-radius:14px}
+.pic .em{font-size:44px;filter:saturate(.85);position:relative}
+.pic img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.txt{padding:12px 14px 14px}
+.txt h3{margin:0 0 2px;font:600 21px/1.1 'Cormorant Garamond',Georgia,serif}
+.txt p{margin:0 0 8px;font-size:13px;line-height:1.35;color:var(--muted)}
+.st{display:inline-block;font:500 10px 'DM Mono',ui-monospace,monospace;letter-spacing:.09em;text-transform:uppercase;padding:3px 8px;border-radius:999px;background:rgba(255,255,255,.85);border:1px solid var(--line);color:#5b5144}
+.st.next{background:var(--acc);border-color:var(--acc);color:#fff}
+.empty{padding:30px 0;text-align:center;color:var(--muted);font:italic 500 22px 'Cormorant Garamond',Georgia,serif}
+footer{padding:20px 0 56px;text-align:center;color:var(--muted);font-size:13px}
+[hidden]{display:none!important}
+@media (prefers-reduced-motion:reduce){.card,.card:hover{transition:none;transform:none}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<a class="back" href="index.html">← The Beauty Index</a>
+<header>
+<svg class="sprig" viewBox="0 0 92 40" aria-hidden="true" fill="none" stroke="#8a7a45" stroke-width="1.4" stroke-linecap="round"><path d="M6 22 C28 8 64 8 86 22"/><g fill="#c9d4b0" stroke="#8a7a45" stroke-width="1"><ellipse cx="22" cy="14" rx="7" ry="3.2" transform="rotate(-28 22 14)"/><ellipse cx="38" cy="10" rx="7" ry="3.2" transform="rotate(-12 38 10)"/><ellipse cx="54" cy="10" rx="7" ry="3.2" transform="rotate(12 54 10)"/><ellipse cx="70" cy="14" rx="7" ry="3.2" transform="rotate(28 70 14)"/></g><circle cx="46" cy="26" r="5" fill="#f1d27a" stroke="#b9833f" stroke-width="1"/></svg>
+<h1>The Edible Index</h1>
+<p class="tag">Eat beautifully. Think deliciously.</p>
+<p class="desc">For the culinarily curious and deliciously health-conscious. An evolving encyclopedia of food chemistry, intelligent ingredients, everyday nourishment, clever recipes, and the art of eating beautifully.</p>
+<div class="rule" aria-hidden="true">❦</div>
+</header>
+<div class="search">
+<label for="q">Search the index</label>
+<input id="q" type="search" placeholder="Search ingredients, recipes and categories" autocomplete="off">
+<nav class="jump" aria-label="Collections"></nav>
+</div>
+<main id="cols"></main>
+<p class="empty" id="none" hidden>Nothing found. Try another word.</p>
+<footer>General food information, not medical advice. Nutrition pages will cite sources such as USDA FoodData Central.</footer>
+</div>
+<script>
+var COLS=[
+{id:"pantry",n:"I",t:"The Intelligent Pantry",s:"Understand your ingredients.",c1:"#eef2e3",c2:"#e9dfc6",acc:"#5e7a50",items:[
+["sweet-chemistry","Sweet Chemistry","Sweeteners and sugar alternatives","🍯",1],
+["protein-library","Protein Library","Animal and plant proteins","🥚",1],
+["grains-carbs","Grains & Carbs","Whole grains, starches and more","🌾",1],
+["fats-oils","Fats & Oils","Cooking oils and fats","🫒",1],
+["dairy-alternatives","Dairy & Alternatives","Milks, yogurts and cheeses","🥛",0],
+["nuts-seeds","Nuts & Seeds","Small things, big nutrition","🌰",1],
+["vegetables","Vegetables","Roots, leaves and everything between","🥕",0],
+["fruits-berries","Fruits & Berries","Sweet, tart and seasonal","🍓",0],
+["herbs-spices","Herbs & Spices","Flavor with benefits","🌿",0],
+["fermented-foods","Fermented Foods","Tangy and alive","🫙",0],
+["functional-foods","Functional Foods","Foods with a little extra","🍄",0],
+["pantry-essentials","Pantry Essentials","Always keep these at home","🧂",0]]},
+{id:"table",n:"II",t:"The Everyday Table",s:"Understand what to make.",c1:"#f8e0d0",c2:"#fbf1e4",acc:"#a9573a",items:[
+["morning-rituals","Morning Rituals","Breakfast","🍳",0],
+["lunch-dinner","Lunch & Dinner","Mains for ordinary days","🍽️",0],
+["soups-broths","Soups & Broths","Warm and simple","🍲",0],
+["little-bites","Little Bites","Snacks","🥨",0],
+["dips-spreads","Dips & Spreads","For bread, crackers and veg","🥣",0],
+["sauces-dressings","Sauces & Dressings","The finishing touch","🥫",0],
+["sweet-indulgences","Sweet Indulgences","Desserts","🍰",0],
+["beverage-bar","The Beverage Bar","Teas, coffees, lattes and smoothies","☕",0],
+["one-pot-wonders","One-Pot Wonders","Less washing up","🥘",0]]},
+{id:"lab",n:"III",t:"The Nourishment Lab",s:"Understand how nutrition supports the body.",c1:"#e5def4",c2:"#dbe8f5",acc:"#5b4f93",items:[
+["nutrition-101","Nutrition 101","The basics, explained","🔬",0],
+["beauty-from-within","Beauty from Within","Food for skin, hair and nails","🌸",0],
+["hormonal-wellness","Hormonal Wellness","What the evidence says","🌙",0],
+["gut-health","Gut Health","Fiber, ferments and friends","🌱",0],
+["strength-fitness","Strength & Fitness","Fuel for training","💪",0],
+["brain-energy","Brain & Energy","Steady focus and stamina","🧠",0],
+["sleep-recovery","Sleep & Recovery","Evening eating and rest","😴",0],
+["immune-health","Immune Health","Everyday nutritional support","🍋",0],
+["blood-sugar","Blood Sugar","Balanced plates, steady energy","🍎",0]]},
+{id:"kitchen",n:"IV",t:"The Clever Kitchen",s:"Make everyday eating easier.",c1:"#f8efb9",c2:"#e6e7c2",acc:"#72722f",items:[
+["grocery-edit","The Grocery Edit","What to buy, what to skip","🛒",0],
+["under-15","Under 15 Minutes","Fast and still lovely","⏱️",0],
+["freezer-essentials","Freezer Essentials","Stock up and relax","❄️",0],
+["ingredient-swaps","Ingredient Swaps","Practical alternatives","🔄",0],
+["build-a-plate","Build a Plate","A simple formula","🥗",0],
+["kitchen-science","Kitchen Science","Why cooking works","⚗️",0]]}
+];
+var cols=document.getElementById("cols"),jump=document.querySelector(".jump"),none=document.getElementById("none");
+function el(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e}
+COLS.forEach(function(c){
+ var a=el("a",null,c.t);a.href="#"+c.id;jump.appendChild(a);
+ var s=el("section","col");s.id=c.id;s.setAttribute("aria-labelledby",c.id+"-h");
+ s.style.setProperty("--c1",c.c1);s.style.setProperty("--c2",c.c2);s.style.setProperty("--acc",c.acc);
+ var h=el("header");h.appendChild(el("div","num","Collection "+c.n));var h2=el("h2",null,c.t);h2.id=c.id+"-h";h.appendChild(h2);h.appendChild(el("p","sub",c.s));s.appendChild(h);
+ var ul=el("ul","grid");
+ c.items.forEach(function(i){
+  var li=el("li","card");li.setAttribute("data-k",(i[1]+" "+i[2]+" "+c.t).toLowerCase());
+  var pic=el("div","pic");pic.appendChild(el("span","em",i[3]));
+  var img=new Image();img.alt="";img.loading="lazy";img.src="images/categories/"+i[0]+".webp";img.onerror=function(){img.remove()};pic.appendChild(img);
+  var tx=el("div","txt");tx.appendChild(el("h3",null,i[1]));tx.appendChild(el("p",null,i[2]));
+  tx.appendChild(el("span","st"+(i[4]?" next":""),i[4]?"Next up":"Coming soon"));
+  li.appendChild(pic);li.appendChild(tx);ul.appendChild(li)});
+ s.appendChild(ul);cols.appendChild(s)});
+document.getElementById("q").addEventListener("input",function(e){
+ var q=e.target.value.trim().toLowerCase(),any=false;
+ document.querySelectorAll("section.col").forEach(function(s){var n=0;
+  s.querySelectorAll(".card").forEach(function(li){var ok=!q||li.getAttribute("data-k").indexOf(q)>-1;li.hidden=!ok;if(ok)n++});
+  s.hidden=!n;if(n)any=true});
+ none.hidden=any});
+</script>
+</body>
+</html>
